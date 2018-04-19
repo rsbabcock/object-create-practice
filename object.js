@@ -29,26 +29,30 @@ const elmoPoop = Object.create({}, {
             enumerable: false,
             writable: true
     },
-   // Worth (enumerable, read-only)
-   worth: {
-    value: function(){           
-        let purchased = elmoPoop.portfolio.filter(transType => transType.trans === "purchase")
-            for (let i = 0; i < purchased.length; i ++) {
-                const itemsOfPurchased = purchased[i]
-                 const qtyOfPurchase = itemsOfPurchased.qty 
-                
-                
-                
-                 
-            }
-        let stockSold = elmoPoop.portfolio.filter(transType => transType.trans === "sold")
-        
-        
-        let totalWorth = 0
-        // for purchases mutliply qty by price$
+    // Worth (enumerable, read-only)
+    worth: {
+        value: function(){           
+            let totalWorth = 0
+            let purchased = elmoPoop.portfolio.filter(transType => transType.trans === "purchase")
+                for (let i = 0; i < purchased.length; i ++) {
+                    const itemsOfPurchased = purchased[i]
+                    // for purchases mutliply qty by price$
+                     const qtyOfPurchase = itemsOfPurchased.qty * itemsOfPurchased.price$
+                     totalWorth += qtyOfPurchase 
+                    }
+            let stockSold = elmoPoop.portfolio.filter(transType => transType.trans === "sold")
+                for(let i =0; i< stockSold.length; i ++) {
+                    const itemsOfSold = stockSold[i]
+                    // for sold mutliply qty by price$
+                    const qtyOfSold = itemsOfSold.qty * itemsOfSold.price$
+                    totalWorth -= qtyOfSold
+                }
+                    return totalWorth
+            
+        },
+        enumerable: false,
         
     },
-    enumerable: false,
     // Purchase (non-enumerable) - This method takes a stock ticker symbol, a quantity, and a price as arguments 
     // and adds purchased stocks to the portfolio
     purchase: {
@@ -84,5 +88,3 @@ const elmoPoop = Object.create({}, {
 
     })
     // When sell() or purchase() are invoked, then the stock portfolio should be modified accordingly. Consider making the portfolio an object itself (if you are feeling brave, try your hand at a Map())
-    
-

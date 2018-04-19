@@ -12,4 +12,5 @@ elmoPoop.sell("APPLE", "1", "500")
 
 // See whats in financial advisor portfolio currently
 console.log(elmoPoop.portfolio)
-console.log(elmoPoop.portfolio[1]["name"])
+
+console.log(elmoPoop.worth())
