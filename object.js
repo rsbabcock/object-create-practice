@@ -4,13 +4,13 @@ const elmoPoop = Object.create({}, {
 
     // Company (enumerable, writable)
     company: {
-        value: "Ramsey Solutions",
+        value: "Sesame Poop Holdings",
         enumerable: true,
         writable: true
     },
     // Specialty (enumerable, writable)
     speciality: {
-        value: "Stock Market Trading",
+        value: "Poops and Giggles",
         enumerable: true,
         writable: true
     },
