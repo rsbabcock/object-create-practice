@@ -29,15 +29,26 @@ const elmoPoop = Object.create({}, {
             enumerable: false,
             writable: true
     },
-    // Worth (enumerable, read-only)
-    worth: {
-        value: function(){
-            for(let i = 0; i < elmoPoop.portfolio; i ++)
+   // Worth (enumerable, read-only)
+   worth: {
+    value: function(){           
+        let purchased = elmoPoop.portfolio.filter(transType => transType.trans === "purchase")
+            for (let i = 0; i < purchased.length; i ++) {
+                const itemsOfPurchased = purchased[i]
+                 const qtyOfPurchase = itemsOfPurchased.qty 
                 
-        },
-        enumerable: false,
+                
+                
+                 
+            }
+        let stockSold = elmoPoop.portfolio.filter(transType => transType.trans === "sold")
+        
+        
+        let totalWorth = 0
+        // for purchases mutliply qty by price$
         
     },
+    enumerable: false,
     // Purchase (non-enumerable) - This method takes a stock ticker symbol, a quantity, and a price as arguments 
     // and adds purchased stocks to the portfolio
     purchase: {
