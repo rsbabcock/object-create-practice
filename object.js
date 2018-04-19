@@ -1,6 +1,6 @@
 // Your job is to create an object that represents a financial advisor and has the following properties and methods.
 
-const financialAdvisor = Object.create({}, {
+const elmoPoop = Object.create({}, {
 
     // Company (enumerable, writable)
     company: {
@@ -23,7 +23,7 @@ const financialAdvisor = Object.create({}, {
         value: "McPooperton",
         enumerable: true
     },
-    // Portfolio (non-enumerable) - Should display the stocks the advisor currently holds
+    // Portfolio (non-enumerable) - Should display the stocks the advisor currently holds, and what has been sold
     portfolio: {
             value: [],
             enumerable: false,
@@ -31,11 +31,15 @@ const financialAdvisor = Object.create({}, {
     },
     // Worth (enumerable, read-only)
     worth: {
-        value: [],
-        enumerable: true,
-        writable: true
+        value: function(){
+            for(let i = 0; i < elmoPoop.portfolio; i ++)
+                
+        },
+        enumerable: false,
+        
     },
-    // Purchase (non-enumerable) - This method takes a stock ticker symbol, a quantity, and a price as arguments
+    // Purchase (non-enumerable) - This method takes a stock ticker symbol, a quantity, and a price as arguments 
+    // and adds purchased stocks to the portfolio
     purchase: {
         value: function (stock, quantity, price){
             // creates object for inputs inside of a new array
@@ -43,18 +47,31 @@ const financialAdvisor = Object.create({}, {
                         name:  stock,
                         qty: quantity,
                         price$: price,
+                        trans: "purchase"
                     }
         // pushes them to portfolio value
-        financialAdvisor.portfolio.push(stockPurchase)
-        }
+        elmoPoop.portfolio.push(stockPurchase)
+        },
+        enumerable: false
     },
     // Sell (non-enumerable) - This method takes a stock ticker symbol, a quantity, and a price as arguments
-    
+    // and adds sold stocks to the portfolio
+    sell: {
+        value: function (stock, quantity, price){
+        // creates object for inputs inside of a new array
+                        let stockSell=  {
+                            name:  stock,
+                            qty: quantity,
+                            price$: price,
+                            trans: "sold"
+                        }
+                // pushes them to portfolio value
+                elmoPoop.portfolio.push(stockSell)
+                },
+        enumerable: false
+            }
+
+    })
     // When sell() or purchase() are invoked, then the stock portfolio should be modified accordingly. Consider making the portfolio an object itself (if you are feeling brave, try your hand at a Map())
     
-})
 
-financialAdvisor.purchase("MMN", "56", "34")
-financialAdvisor.purchase("APPLE", "2", "200")
-
-console.log(financialAdvisor.portfolio)
