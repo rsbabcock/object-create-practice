@@ -34,20 +34,30 @@ const elmoPoop = Object.create({}, {
     worth: {
         value: function(){           
             let totalWorth = 0
-            let purchased = this.portfolio.filter(transType => transType.trans === "purchase")
-                for (let i = 0; i < purchased.length; i ++) {
-                    const itemsOfPurchased = purchased[i]
-                    // for purchases mutliply qty by price$
-                     const qtyOfPurchase = itemsOfPurchased.qty * itemsOfPurchased.price$
-                     totalWorth += qtyOfPurchase 
-                    }
-            let stockSold = this.portfolio.filter(transType => transType.trans === "sold")
-                for(let i =0; i< stockSold.length; i ++) {
-                    const itemsOfSold = stockSold[i]
-                    // for sold mutliply qty by price$
-                    const qtyOfSold = itemsOfSold.qty * itemsOfSold.price$
-                    totalWorth -= qtyOfSold
+
+            this.portfolio.forEach(transaction => {
+                if(transaction.purchase){
+                    totalWorth += transaction.quantity * transaction.price
+                } else {
+                    totalWorth -= transaction.quantity * transaction.price
                 }
+            })
+
+            // old unnecessary code that used a for loop instead of forEach
+            // let purchased = this.portfolio.filter(transType => transType.purchase === true)
+            //     for(let i = 0; i < purchased.length; i ++) {
+            //         const itemsOfPurchased = purchased[i]
+            //         // for purchases mutliply qty by price$
+            //          const qtyOfPurchase = itemsOfPurchased.quantity * itemsOfPurchased.price
+            //          totalWorth += qtyOfPurchase 
+            //         }
+            // let stockSold = this.portfolio.filter(transType => transType.purchase === false)
+            //     for(let i =0; i< stockSold.length; i ++) {
+            //         const itemsOfSold = stockSold[i]
+            //         // for sold mutliply qty by price$
+            //         const qtyOfSold = itemsOfSold.quantity * itemsOfSold.price
+            //         totalWorth -= qtyOfSold
+            //     }
                     return totalWorth
             
         },
@@ -60,10 +70,10 @@ const elmoPoop = Object.create({}, {
         value: function (stock, quantity, price){
             // creates object for inputs inside of a new array
            let stockPurchase =  {
-                        name:  stock,
-                        qty: quantity,
-                        price$: price,
-                        trans: "purchase"
+                        stock,
+                        quantity,
+                        price,
+                        purchase: true
                     }
         // pushes them to portfolio value
         this.portfolio.push(stockPurchase)
@@ -76,10 +86,10 @@ const elmoPoop = Object.create({}, {
         value: function (stock, quantity, price){
         // creates object for inputs inside of a new array
                         let stockSell=  {
-                            name:  stock,
-                            qty: quantity,
-                            price$: price,
-                            trans: "sold"
+                            stock,
+                            quantity,
+                            price,
+                            purchase: false
                         }
                 // pushes them to portfolio value
                 this.portfolio.push(stockSell)
@@ -88,4 +98,4 @@ const elmoPoop = Object.create({}, {
             }
 
     })
-    // When sell() or purchase() are invoked, then the stock portfolio should be modified accordingly. Consider making the portfolio an object itself (if you are feeling brave, try your hand at a Map())
+    
