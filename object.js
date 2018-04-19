@@ -29,18 +29,19 @@ const elmoPoop = Object.create({}, {
             enumerable: false,
             writable: true
     },
-    // Worth (enumerable, read-only)
+    // Worth (enumerable, read-only), looks at portfolio and if it is a purchase adds to total worth
+    // looks at solds and decreases from total worth - returns current worth
     worth: {
         value: function(){           
             let totalWorth = 0
-            let purchased = elmoPoop.portfolio.filter(transType => transType.trans === "purchase")
+            let purchased = this.portfolio.filter(transType => transType.trans === "purchase")
                 for (let i = 0; i < purchased.length; i ++) {
                     const itemsOfPurchased = purchased[i]
                     // for purchases mutliply qty by price$
                      const qtyOfPurchase = itemsOfPurchased.qty * itemsOfPurchased.price$
                      totalWorth += qtyOfPurchase 
                     }
-            let stockSold = elmoPoop.portfolio.filter(transType => transType.trans === "sold")
+            let stockSold = this.portfolio.filter(transType => transType.trans === "sold")
                 for(let i =0; i< stockSold.length; i ++) {
                     const itemsOfSold = stockSold[i]
                     // for sold mutliply qty by price$
@@ -65,7 +66,7 @@ const elmoPoop = Object.create({}, {
                         trans: "purchase"
                     }
         // pushes them to portfolio value
-        elmoPoop.portfolio.push(stockPurchase)
+        this.portfolio.push(stockPurchase)
         },
         enumerable: false
     },
@@ -81,7 +82,7 @@ const elmoPoop = Object.create({}, {
                             trans: "sold"
                         }
                 // pushes them to portfolio value
-                elmoPoop.portfolio.push(stockSell)
+                this.portfolio.push(stockSell)
                 },
         enumerable: false
             }
